@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>sector</title>
+
+    
+
+</head>
+
+<body>
+    
+    <button id="btn">哈哈哈</button>
+    <input type="password" value="输入内容">
+
+    <script>
+        var btn = document.querySelector('#btn')
+        var input = document.querySelector('input')
+
+        var flag = 0;
+        btn.onclick = function() {
+            if (flag == 0) {
+                input.type = 'text';
+                flag = 1
+            }else {
+                input.type = 'password';
+                flag = 0
+            }
+            
+
+        }
+        
+        
+        
+
+
+    </script>
+
+</body>
+
+</html>

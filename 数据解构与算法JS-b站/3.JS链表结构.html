@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.JS链表结构-单向链表</title>
+</head>
+
+<body>
+    <script>
+        //封装链表
+        function LinkedList() {
+            //内部类：节点类
+            function Node(data) {
+                this.data = data
+                this.next = null
+            };
+            // 属性：header
+            this.header = null,
+                //lenght:链表节点的长度
+                this.length = 0,
+
+                //1.追加方法
+                LinkedList.prototype.append = function (data) {
+                    //1. 创建新节点
+                    let newNode = new Node(data);
+
+                    //2. 判断是否为第一个节点
+                    if (this.length == 0) {   //2.1是第一个节点            
+                        this.header = newNode
+                    } else {                  //2.2不是第一个节点
+                        //找到最后的节点
+                        //a.设置current为第一个节点
+                        let current = this.header;
+                        /*b.判断current的next是否为空，不为空则有下一个节点。
+                            所以此时current指向下一个，直至为null*/
+                        while (current.next) {
+                            current = current.next
+                        }
+                        //让最后节点的next指向新节点(最新的节点/append的节点放到最后一个的next节点上)
+                        current.next = newNode
+                    }
+                    //3.length+1
+                    this.length += 1
+                }
+
+            //2.toString方法
+            LinkedList.prototype.toString = function () {
+                //1. 定义变量
+                let current = this.header
+                let listString = ''
+                //2. 循环获取每一个节点
+                while (current) {
+                    listString += current.data + ' '
+                    current = current.next
+                }
+                return listString
+            }
+
+            //3.insert方法
+            LinkedList.prototype.insert = function (position, data) {
+                //1. 对position进行越界判断
+                if (position < 0 && position > this.length) {
+                    return false
+                }
+
+                //2.根据data创建newNode
+                let newNode = new Node(data)
+
+                //3.判断插入的位置是否是第一个
+                if (position == 0) {
+                    newNode.next = this.header;
+                    this.header = newNode;
+                } else {//position > 0
+                    let index = 0;
+                    let current = this.header;
+                    let previous = null
+                    while (index++ < position) {
+                        previous = current;
+                        current = current.next;
+                    }
+                    newNode.next = current;
+                    previous.next = newNode;
+
+                }
+                //4.length++
+                this.length += 1
+
+                return true
+            }
+        }
+
+
+
+        //测试代码
+        //1. 创建LinkedList
+        let list = new LinkedList();
+
+        //2. 测试append方法
+        list.append('abc')
+        list.append('cba')
+        list.append('nba')
+        list.append('mba')
+        console.log("append方法添加了node：" + list.toString())
+
+        //3. 测试insert方法
+        list.insert(2, 'insertNode')
+        console.log("insert插入了新的node：" + list.toString());
+
+    </script>
+</body>
+
+</html>
